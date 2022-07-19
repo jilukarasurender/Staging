@@ -20,4 +20,11 @@ stage("deploy-dev"){
 steps{
 sshagent(['tomcat-new']) {
 sh """
-scp -o strickhostkeychecking=no target/myweb.war ec2-user
+scp -o strickhostkeychecking=no target/myweb.war ec2-user/
+
+"""
+}
+}
+}
+}
+}
