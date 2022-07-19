@@ -1,0 +1,23 @@
+pipeline{
+agent any
+
+environment{
+PATH = "/opt/maven3/bin:$PATH"
+} 
+stages{
+stage("git checkout)"{
+steps{
+git credentialsId: 'jilukarasurender', url: 'https://github.comjilukarasurender/myweb.git'
+}
+}
+stage("Maven build"){
+steps{
+sh "mvn clean package"
+sh "mv target/* .war target/myweb.war"
+}
+}
+stage("deploy-dev"){
+steps{
+sshagent(['tomcat-new']) {
+sh """
+scp -o strickhostkeychecking=no target/myweb.war ec2-user
